@@ -7,6 +7,7 @@ function CountdownClient:__init()
 	self.RenderEvent = nil
 
 	self.NetworkEvent = Network:Subscribe('CountdownStart', self, self.CountdownStart)
+	Network:Subscribe('CountdownStop', self, self.CountdownStop)
 	
 	Events:Subscribe( "ModuleLoad", self, self.ModuleLoad )
     Events:Subscribe( "ModulesLoad", self, self.ModuleLoad )
@@ -21,6 +22,11 @@ function CountdownClient:CountdownStart(arg)
 	self.CdLastTick = self.CdStartTime
 end
 
+function CountdownClient:CountdownStop()
+	print('countdown stopped')
+	Events:Unsubscribe(self.RenderEvent)
+	self.NetworkEvent = Network:Subscribe('CountdownStart', self, self.CountdownStart)
+end
 
 function CountdownClient:DrawCountdown()
 
@@ -44,7 +50,6 @@ function CountdownClient:DrawCountdown()
 	if(os.clock() >= self.CdLastTick + 1) then
 		self.CdString = self.CdString - 1
 		self.CdLastTick = os.clock()
-		Network:Broadcast('CountdownDecrement', self.CdString)
 	end
 	
 end
