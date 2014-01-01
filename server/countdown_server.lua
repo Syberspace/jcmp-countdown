@@ -5,10 +5,6 @@ function Countdown:__init()
 	
 	self.DefaultDuration = 10
 	
-	self.CdString = 0
-	self.CdStartTime = 0
-	self.CdLastTick = 0
-	
 	Events:Subscribe('AuthedCommand', self, self.Command)
 end
 
@@ -26,9 +22,6 @@ function Countdown:Command(cmd)
 		end
 		duration = tonumber(cmd.args[1]) or self.DefaultDuration
 		Network:Broadcast('CountdownStart', duration)
-		self.CdString = duration
-		self.CdStartTime = os.clock()
-		self.CdLastTick = self.CdStartTime
 	end
 end
 
