@@ -18,17 +18,21 @@ __Commands:__
 __Installation__
 
 _with git_
+```
 cd /path/to/your/server/scripts/
 mkdir countdown
 cd countdown
 git pull https://github.com/Syberspace/jcmp-countdown.git
+```
 
 _without git_
+```
 cd /path/to/your/server/scripts
 wget https://github.com/Syberspace/jcmp-countdown/archive/master.zip
 unzip master.zip
 rm master.zip
 mv jcmp-countdown-master countdown
+```
 
 
 now you can load the module by typing `load countdown` into your server-console
