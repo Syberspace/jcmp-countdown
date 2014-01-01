@@ -55,7 +55,8 @@ function CountdownClient:ModuleLoad()
                 "on the top quarter of every player's screen\r\n" ..
                 "Commands:\n" ..
                 "/countdown or /cd - Starts the default countdown (10 seconds)\n" ..
-                "/cd <amount> - Starts a countdown for <amount> seconds\n"
+                "/cd <amount> - Starts a countdown for <amount> seconds\n"..
+				"/cd help or /countdown help - Displays the available commands in chat\n"
         })
 end
 

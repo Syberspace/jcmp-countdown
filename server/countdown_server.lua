@@ -17,8 +17,12 @@ function Countdown:Command(cmd)
 	if cmd.name == 'countdown' or cmd.name == 'cd' then
 		if cmd.args[1] == 'help' then
 			cmd.player:SendChatMessage('Countdown-Help', Color(255,100,255))
-			cmd.player:SendChatMessage('Usage: /countdown <duration_in_seconds>', Color(255,100,255))
-			cmd.player:SendChatMessage('Usage: /cd <duration_in_seconds>', Color(255,100,255))
+			cmd.player:SendChatMessage('Usage: /countdown - Starts the default countdown (10 seconds)', Color(255,100,255))
+			cmd.player:SendChatMessage('Usage: /countdown <amount> - Starts a countdown for <amount> seconds', Color(255,100,255))
+			cmd.player:SendChatMessage('Usage: /countdown help - Displays this message', Color(255,100,255))
+			cmd.player:SendChatMessage('Usage: /cd  - Starts the default countdown (10 seconds)', Color(255,100,255))
+			cmd.player:SendChatMessage('Usage: /cd <amount> - Starts a countdown for <amount> seconds', Color(255,100,255))
+			cmd.player:SendChatMessage('Usage: /cd help - Displays this message', Color(255,100,255))
 			return
 		end
 		duration = tonumber(cmd.args[1]) or self.DefaultDuration
