@@ -64,6 +64,7 @@ function CountdownClient:ModuleLoad()
                 "Commands:\n" ..
                 "/countdown or /cd - Starts the default countdown (10 seconds)\n" ..
                 "/cd <amount> - Starts a countdown for <amount> seconds\n"..
+				"/cd stop or /countdown stop - Stops the current countdown, can only be used by the player who started the countdown\n"..
 				"/cd help or /countdown help - Displays the available commands in chat\n"
         })
 end

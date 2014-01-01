@@ -9,8 +9,10 @@ __Commands:__
 ```
 /countdown or /cd - Starts the default countdown (10 seconds)
 /cd <amount> - Starts a countdown for <amount> seconds
+/cd stop or /countdown stop - Stops the current countdown, can only be used by the player who started the countdown
 /cd help or /countdown help - Displays the available commands in chat
 ```
+All commands can also be viewed by pressing F5
 
 
 [This script requires CommandManager by Ahrotahntee](http://www.jc-mp.com/forums/index.php/topic,3364.0.html)
