@@ -10,7 +10,6 @@ function Countdown:__init()
 	self.CdLastTick = 0
 	
 	Events:Subscribe('AuthedCommand', self, self.Command)
-	Events:Subscribe('PreTick', self, self.CountdownRender)
 end
 
 function Countdown:Command(cmd)
@@ -26,21 +25,10 @@ function Countdown:Command(cmd)
 			return
 		end
 		duration = tonumber(cmd.args[1]) or self.DefaultDuration
-		print('duration '..duration)
 		Network:Broadcast('CountdownStart', duration)
 		self.CdString = duration
 		self.CdStartTime = os.clock()
 		self.CdLastTick = self.CdStartTime
-	end
-end
-
-function Countdown:CountdownRender()
-	if self.CdString >= 0 then
-		if(os.clock() >= self.CdLastTick + 1) then
-			self.CdString = self.CdString - 1
-			self.CdLastTick = os.clock()
-			Network:Broadcast('CountdownDecrement', self.CdString)
-		end
 	end
 end
 

@@ -6,8 +6,7 @@ function CountdownClient:__init()
 	self.CdLastTick = 0
 	self.RenderEvent = nil
 
-	Network:Subscribe('CountdownStart', self, self.CountdownStart)
-	Network:Subscribe('CountdownDecrement', self, self.CountdownDecrement)
+	self.NetworkEvent = Network:Subscribe('CountdownStart', self, self.CountdownStart)
 	
 	Events:Subscribe( "ModuleLoad", self, self.ModuleLoad )
     Events:Subscribe( "ModulesLoad", self, self.ModuleLoad )
@@ -16,16 +15,12 @@ end
 
 function CountdownClient:CountdownStart(arg)
 	self.RenderEvent = Events:Subscribe('Render', self, self.DrawCountdown)
+	Network:Unsubscribe(self.NetworkEvent)
 	self.CdString = arg
 	self.CdStartTime = os.clock()
 	self.CdLastTick = self.CdStartTime
 end
 
-function CountdownClient:CountdownDecrement(arg)
-	if(arg == self.CdString - 1) then
-		self.CdString = arg
-	end
-end
 
 function CountdownClient:DrawCountdown()
 
@@ -37,6 +32,7 @@ function CountdownClient:DrawCountdown()
 		displayString = 'Go!'
 	elseif self.CdString < 0 then
 		Events:Unsubscribe(self.RenderEvent)
+		self.NetworkEvent = Network:Subscribe('CountdownStart', self, self.CountdownStart)
 	end
 	
 	local position = Vector2(Render.Width/2, Render.Height/100*20)
@@ -44,6 +40,13 @@ function CountdownClient:DrawCountdown()
 	position.x = position.x - Render:GetTextWidth(displayString, TextSize.VeryLarge) / 2
 	
 	Render:DrawText(position, displayString, Color(255,255,0), TextSize.VeryLarge)
+	
+	if(os.clock() >= self.CdLastTick + 1) then
+		self.CdString = self.CdString - 1
+		self.CdLastTick = os.clock()
+		Network:Broadcast('CountdownDecrement', self.CdString)
+	end
+	
 end
 
 function CountdownClient:ModuleLoad()
