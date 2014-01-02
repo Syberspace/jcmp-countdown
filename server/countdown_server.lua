@@ -4,7 +4,9 @@ function Countdown:__init()
 	print('init')
 	
 	self.DefaultDuration = 10
+	self.Duration = nil
 	self.CountdownPlayer = nil
+	self.CountdownStart = nil
 	
 	Events:Subscribe('ParsedPlayerCommand', self, self.Command)
 end
@@ -24,17 +26,25 @@ function Countdown:Command(cmd)
 			cmd.player:SendChatMessage('Usage: /cd help - Displays this message', Color(255,100,255))
 			return
 		elseif cmd.args[1] == 'stop' then
+			print(self.CountdownPlayer,cmd.player)
 			if cmd.player == self.CountdownPlayer then
 				Network:Broadcast('CountdownStop')
-			else
+				self.CountdownPlayer = nil
+			elseif not self.CountdownPlayer == nil then
 				cmd.player:SendChatMessage('Only '..self.CountdownPlayer..' can stop this countdown', Color(255,0,0))
+			elseif self.CountdownPlayer == nil then
+				cmd.player:SendChatMessage('No countdown!', Color(255,0,0))
 			end
 			return
 		end
-		
-		self.CountdownPlayer = cmd.player
-		duration = tonumber(cmd.args[1]) or self.DefaultDuration
-		Network:Broadcast('CountdownStart', duration)
+		if self.CountdownPlayer == nil or ((self.CountdownStart or 0) + (self.Duration or 0) >= os.clock()) then
+			self.CountdownPlayer = cmd.player
+			self.Duration = tonumber(cmd.args[1]) or self.DefaultDuration
+			self.CountdownStart = os.clock()
+			Network:Broadcast('CountdownStart', self.Duration)
+		else
+			print('countdown not finished')
+		end
 	end
 end
 
