@@ -23,7 +23,6 @@ function CountdownClient:CountdownStart(arg)
 end
 
 function CountdownClient:CountdownStop()
-	print('countdown stopped')
 	Events:Unsubscribe(self.RenderEvent)
 	self.NetworkEvent = Network:Subscribe('CountdownStart', self, self.CountdownStart)
 end

@@ -6,10 +6,11 @@ function Countdown:__init()
 	self.DefaultDuration = 10
 	self.CountdownPlayer = nil
 	
-	Events:Subscribe('AuthedCommand', self, self.Command)
+	Events:Subscribe('ParsedPlayerCommand', self, self.Command)
 end
 
-function Countdown:Command(cmd)
+
+function Countdown:Command(cmd)	
 	if cmd.name == 'countdown' or cmd.name == 'cd' then
 		if cmd.args[1] == 'help' then
 			cmd.player:SendChatMessage('Countdown-Help', Color(255,100,255))
@@ -25,7 +26,6 @@ function Countdown:Command(cmd)
 		elseif cmd.args[1] == 'stop' then
 			if cmd.player == self.CountdownPlayer then
 				Network:Broadcast('CountdownStop')
-				print(cmd.player,' stopped the cd')
 			else
 				cmd.player:SendChatMessage('Only '..self.CountdownPlayer..' can stop this countdown', Color(255,0,0))
 			end
