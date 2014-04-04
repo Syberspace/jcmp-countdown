@@ -6,7 +6,7 @@ This is a little JC-MP Module which allows you to start a countdown for all play
 __Commands:__
 
 _/countdown_ or _/cd_ - Starts the default countdown (10 seconds)  
-_/cd <amount>_ or _/countdown <amount>_ - Starts a countdown for <amount> seconds  
+_/cd  \<amount\>_ or _/countdown \<amount\>_ - Starts a countdown for \<amount\> seconds  
 _/cd stop_ or _/countdown stop_ - Stops the current countdown, can only be used by the player who started the countdown  
 _/cd help_ or _/countdown help_ - Displays the available commands in chat  
 
@@ -17,11 +17,9 @@ __Installation__
 
 _with git_
 ```
-cd /path/to/your/server/scripts/
-mkdir countdown
-cd countdown
-git init
-git pull https://github.com/Syberspace/jcmp-countdown.git
+cd /path/to/your/server/scripts
+git clone https://github.com/Syberspace/jcmp-countdown.git
+mv jcmp-countdown countdown
 ```
 
 _without git_
@@ -36,7 +34,7 @@ now you can load the module by typing `load countdown` into your server-console
 
 __Updating__
 
-make sure to unload the script by typing `unload countdown` into your server-console
+make sure to unload the script by typing `unload countdown` into your server-console  
 _with git_
 ```
 cd /path/to/your/server/scripts/countdown
